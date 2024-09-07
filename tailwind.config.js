@@ -6,7 +6,11 @@ export default {
     './resources/js/**/*.vue',
   ],
   theme: {
-    extend: {},
+    extend: {
+        margin: {
+            '0-important': '0 !important',
+        }
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),

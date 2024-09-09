@@ -21,7 +21,9 @@
             <Box>
                 <template #header> Monthly Payment </template>
                 <div>
-                    <label class="label">Interest rate ({{ interestRate }}%)</label>
+                    <label class="label"
+                        >Interest rate ({{ interestRate }}%)</label
+                    >
                     <input
                         v-model.number="interestRate"
                         type="range"
@@ -48,6 +50,33 @@
                             class="text-3xl"
                         />
                     </div>
+
+                    <div class="mt-2 text-gray-500">
+                        <div class="flex justify-between">
+                            <div>Total paid</div>
+                            <div>
+                                <PriceDisplay :price="totalPaid" class="font-medium" />
+                            </div>
+                        </div>
+                        <div class="flex justify-between">
+                            <div>Principal paid</div>
+                            <div>
+                                <PriceDisplay
+                                    :price="listing.price"
+                                    class="font-medium"
+                                />
+                            </div>
+                        </div>
+                        <div class="flex justify-between">
+                            <div>Interest paid</div>
+                            <div>
+                                <PriceDisplay
+                                    :price="totalInterest"
+                                    class="font-medium"
+                                />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </Box>
         </div>
@@ -61,7 +90,7 @@ import PriceDisplay from "@/Components/PriceDisplay.vue";
 import Box from "@/Components/UI/Box.vue";
 
 import { ref } from "vue";
-import {useMonthlyPayment} from '@/Composables/useMonthlyPayment'
+import { useMonthlyPayment } from "@/Composables/useMonthlyPayment";
 
 const props = defineProps({
     listing: Object,
@@ -71,5 +100,9 @@ const interestRate = ref(2.5);
 const duration = ref(25);
 
 // Calculate monthly payment
-const { monthlyPayment } = useMonthlyPayment(props.listing.price, interestRate, duration);
+const { monthlyPayment, totalPaid, totalInterest } = useMonthlyPayment(
+    props.listing.price,
+    interestRate,
+    duration
+);
 </script>

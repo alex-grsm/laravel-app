@@ -1,13 +1,23 @@
-import { computed, isRef } from 'vue'
+import { computed, unref } from 'vue'
 
 export const useMonthlyPayment = (total, interestRate, duration) => {
+    // Убираем дублирующиеся проверки на ref с помощью unref
     const monthlyPayment = computed(() => {
-        const principle = isRef(total) ? total.value : total
-        const monthlyInterest = (isRef(interestRate) ? interestRate.value : interestRate) / 100 / 12
-        const numberOfPaymentMonths = (isRef(duration) ? duration.value : duration) * 12
+        const principle = unref(total)
+        const monthlyInterest = unref(interestRate) / 100 / 12
+        const numberOfPaymentMonths = unref(duration) * 12
 
-        return principle * monthlyInterest * (Math.pow(1 + monthlyInterest, numberOfPaymentMonths)) / (Math.pow(1 + monthlyInterest, numberOfPaymentMonths) - 1)
+        // Стандартная формула расчёта ежемесячного платежа по кредиту
+        return (
+            principle * monthlyInterest * Math.pow(1 + monthlyInterest, numberOfPaymentMonths)
+        ) / (Math.pow(1 + monthlyInterest, numberOfPaymentMonths) - 1)
     })
 
-    return { monthlyPayment }
+    // Общая сумма выплат
+    const totalPaid = computed(() => unref(duration) * 12 * monthlyPayment.value)
+
+    // Общая сумма процентов
+    const totalInterest = computed(() => totalPaid.value - unref(total))
+
+    return { monthlyPayment, totalPaid, totalInterest }
 }

@@ -22,12 +22,12 @@
                 <ListingAddress :listing="listing" class="text-gray-500" />
             </Link>
         </div>
-        <div v-if="auth">
+        <div v-if="$attrs.user">
             <Link :href="route('listing.edit', { listing: listing.id })">
                 Edit
             </Link>
         </div>
-        <div v-if="auth">
+        <div v-if="$attrs.user">
             <Link
                 :href="route('listing.destroy', { listing: listing.id })"
                 method="DELETE"

@@ -4,6 +4,7 @@
             v-for="listing in listings"
             :key="listing.id"
             :listing="listing"
+            v-bind="$attrs"
         />
     </div>
 </template>

@@ -22,7 +22,8 @@
                 <ListingAddress :listing="listing" class="text-gray-500" />
             </Link>
         </div>
-        <div v-if="$attrs.user">
+        <!-- <div v-if="$attrs.user"> -->
+        <div>
             <Link :href="route('listing.edit', { listing: listing.id })">
                 Edit
             </Link>

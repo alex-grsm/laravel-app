@@ -28,7 +28,7 @@
                 Edit
             </Link>
         </div>
-        <div v-if="$attrs.user">
+        <!-- <div>
             <Link
                 :href="route('listing.destroy', { listing: listing.id })"
                 method="DELETE"
@@ -36,7 +36,7 @@
             >
                 Delete
             </Link>
-        </div>
+        </div> -->
     </Box>
 </template>
 

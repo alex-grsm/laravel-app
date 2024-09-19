@@ -33,7 +33,7 @@ class ListingController extends Controller
                 'filters' => $filters,
                 'listings' => Listing::latest()
                     ->filter($filters)
-                    ->paginate(10)
+                    ->paginate(perPage: 9)
                     ->withQueryString()
 
             ]
@@ -134,13 +134,13 @@ class ListingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Listing $listing)
-    {
-        Gate::authorize('delete', $listing); // Проверка прав на удаление
+    // public function destroy(Listing $listing)
+    // {
+    //     Gate::authorize('delete', $listing); // Проверка прав на удаление
 
-        $listing->delete();
+    //     $listing->delete();
 
-        return redirect()->back()
-            ->with('success', 'Listing was deleted!');
-    }
+    //     return redirect()->back()
+    //         ->with('success', 'Listing was deleted!');
+    // }
 }

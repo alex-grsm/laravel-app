@@ -4,7 +4,7 @@ import MainLayout from '@/Layouts/MainLayout.vue'
 import { ZiggyVue } from 'ziggy'
 import '../css/app.css'
 
-    createInertiaApp({
+createInertiaApp({
     resolve: async (name) => {
         const pages = import.meta.glob('./Pages/**/*.vue')
         let page = await pages[`./Pages/${name}.vue`]()
@@ -13,8 +13,12 @@ import '../css/app.css'
     },
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
-        .use(plugin)
-        .use(ZiggyVue)
-        .mount(el)
+            .use(plugin)
+            .use(ZiggyVue)
+            .mount(el)
+    },
+    progress: {
+        color: '#4F46E5',
+        showSpinner: true,
     },
 })

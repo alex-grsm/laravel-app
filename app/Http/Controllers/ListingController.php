@@ -35,7 +35,6 @@ class ListingController extends Controller
                     ->filter($filters)
                     ->paginate(perPage: 9)
                     ->withQueryString()
-
             ]
         );
     }

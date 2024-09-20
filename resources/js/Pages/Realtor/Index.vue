@@ -5,7 +5,7 @@
     </section>
     <section class="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <Box
-            v-for="listing in listings"
+            v-for="listing in listings.data"
             :key="listing.id"
             :class="{
                 'border-red-200': listing.deleted_at,
@@ -46,6 +46,10 @@
             </div>
         </Box>
     </section>
+
+    <section v-if="listings.data.length" class="w-full flex justify-center my-4">
+        <Pagination :links="listings.links" />
+    </section>
 </template>
 
 <script setup>
@@ -53,11 +57,12 @@ import ListingAddress from "@/Components/ListingAddress.vue";
 import ListingSpace from "@/Components/ListingSpace.vue";
 import PriceDisplay from "@/Components/PriceDisplay.vue";
 import Box from "@/Components/UI/Box.vue";
+import Pagination from "@/Components/UI/Pagination.vue";
 import RealtorFilters from "@/Pages/Realtor/Index/Components/RealtorFilters.vue";
 import { Link } from "@inertiajs/vue3";
 
 defineProps({
-    listings: Array,
+    listings: Object,
     filters: Object,
 });
 </script>

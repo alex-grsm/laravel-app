@@ -23,11 +23,11 @@
             </Link>
         </div>
         <!-- <div v-if="$attrs.user"> -->
-        <div>
+        <!-- <div>
             <Link :href="route('listing.edit', { listing: listing.id })">
                 Edit
             </Link>
-        </div>
+        </div> -->
         <!-- <div>
             <Link
                 :href="route('listing.destroy', { listing: listing.id })"

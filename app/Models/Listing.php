@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Listing extends Model
 {
@@ -32,9 +33,39 @@ class Listing extends Model
         );
     }
 
+    /**
+     * All images associated with this listing
+     *
+     * @return HasMany<\App\Models\ListingImage>
+     */
+    public function images(): HasMany
+    {
+        return $this->hasMany(ListingImage::class);
+    }
+
+
     // public function scopeMostRecent($query): Builder {
     //     return $query->orderByDesc('created_at');
     // }
+
+    /**
+     * Scope a query to only include listings matching the given filters.
+     *
+     * Available filters are:
+     * - priceFrom: The minimum price of the listing
+     * - priceTo: The maximum price of the listing
+     * - beds: The amount of beds in the listing (integer, or "6+" for 6 or more)
+     * - baths: The amount of baths in the listing (integer, or "6+" for 6 or more)
+     * - areaFrom: The minimum area of the listing
+     * - areaTo: The maximum area of the listing
+     * - deleted: Whether to include deleted listings
+     * - by: The field to order the listings by (one of 'price', 'created_at')
+     * - order: The order to use for the given field (one of 'asc', 'desc')
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  array  $filters
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public function scopeFilter(Builder $query, array $filters): Builder
     {
         return $query->when(

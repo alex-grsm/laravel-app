@@ -8,14 +8,14 @@
             v-for="listing in listings.data"
             :key="listing.id"
             :class="{
-                'border-red-200': listing.deleted_at,
+                'border-red-500 border-dashed': listing.deleted_at,
                 'border-gray-200': !listing.deleted_at,
             }"
         >
             <div
                 class="flex flex-col md:flex-row gap-2 md:items-center justify-between"
             >
-                <div>
+                <div :class="{ 'opacity-50': listing.deleted_at }">
                     <div class="xl:flex items-center gap-2">
                         <PriceDisplay
                             :price="listing.price"
@@ -35,8 +35,17 @@
                         target="_blank"
                         >Preview</a
                     >
-                    <Link :href="route('realtor.listing.edit', { listing: listing.id })" class="btn-outline text-xs font-medium">Edit</Link>
                     <Link
+                        :href="
+                            route('realtor.listing.edit', {
+                                listing: listing.id,
+                            })
+                        "
+                        class="btn-outline text-xs font-medium"
+                        >Edit</Link
+                    >
+                    <Link
+                        v-if="!listing.deleted_at"
                         class="btn-outline text-xs font-medium"
                         :href="
                             route('realtor.listing.destroy', {
@@ -46,6 +55,18 @@
                         as="button"
                         method="delete"
                         >Delete</Link
+                    >
+                    <Link
+                        v-else
+                        class="btn-outline text-xs font-medium"
+                        :href="
+                            route('realtor.listing.restore', {
+                                listing: listing.id,
+                            })
+                        "
+                        as="button"
+                        method="put"
+                        >Restore</Link
                     >
                 </div>
             </div>

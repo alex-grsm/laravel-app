@@ -14,7 +14,7 @@
         "laravel-vite-plugin": "^1.0",
         "lodash": "^4.17.21",
         "postcss": "^8.4.47",
-        "tailwindcss": "^3.4.12",
+        "tailwindcss": "^3.4.13",
         "unplugin-vue-define-options": "^1.5.1",
         "vite": "^5.4"
     },

@@ -49,6 +49,7 @@ class ListingController extends Controller
         // if (Auth::user()->cannot('view', $listing)) {
         //     abort(403);
         // }
+        $listing->load(['images']);
 
         return inertia(
             'Listing/Show',

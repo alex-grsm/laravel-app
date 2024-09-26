@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Storage;
 
 class RealtorListingImageController extends Controller
 {
-    public function create(Listing $listing) {
+    public function create(Listing $listing)
+    {
         $listing->load(['images']);
 
         return inertia(
@@ -18,7 +19,8 @@ class RealtorListingImageController extends Controller
         );
     }
 
-    public function store(Listing $listing, Request $request) {
+    public function store(Listing $listing, Request $request)
+    {
         // dd('Works!');
         if ($request->hasFile('images')) {
             $request->validate([
@@ -45,5 +47,4 @@ class RealtorListingImageController extends Controller
         $image->delete();
         return redirect()->back()->with('success', 'Image was deleted!');
     }
-
 }

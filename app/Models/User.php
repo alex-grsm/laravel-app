@@ -47,15 +47,27 @@ class User extends Authenticatable
     }
 
     /**
-     * Get all listings authored by the user.
+     * Get the listings created by the user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Listing>
      */
     public function listings(): HasMany
     {
         return $this->hasMany(
-            \App\Models\Listing::class,
+            Listing::class,
             'by_user_id'
+        );
+    }
+    /**
+     * Get the offers created by the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Offer>
+     */
+    public function offers(): HasMany
+    {
+        return $this->hasMany(
+            Offer::class,
+            'bidder_id'
         );
     }
 }

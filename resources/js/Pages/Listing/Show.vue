@@ -54,6 +54,8 @@
                         <div class="text-gray-400">Your monthly payment</div>
                         <PriceDisplay
                             :price="monthlyPayment"
+                            locale="de-DE"
+                            currency="EUR"
                             class="text-3xl"
                         />
                     </div>
@@ -64,6 +66,8 @@
                             <div>
                                 <PriceDisplay
                                     :price="totalPaid"
+                                    locale="de-DE"
+                                    currency="EUR"
                                     class="font-medium"
                                 />
                             </div>
@@ -73,6 +77,8 @@
                             <div>
                                 <PriceDisplay
                                     :price="listing.price"
+                                    locale="de-DE"
+                                    currency="EUR"
                                     class="font-medium"
                                 />
                             </div>
@@ -82,6 +88,8 @@
                             <div>
                                 <PriceDisplay
                                     :price="totalInterest"
+                                    locale="de-DE"
+                                    currency="EUR"
                                     class="font-medium"
                                 />
                             </div>
@@ -90,10 +98,12 @@
                 </div>
             </Box>
             <MakeOffer
-                v-if="user"
+                v-if="user && !offerMade"
                 :listing-id="listing.id"
                 :price="listing.price"
             />
+
+            <OfferMade v-if="user && offerMade" :offer="offerMade" />
         </div>
     </div>
 </template>
@@ -107,9 +117,11 @@ import MakeOffer from "@/Pages/Listing/Show/MakeOffer.vue";
 import { ref, computed } from "vue";
 import { useMonthlyPayment } from "@/Composables/useMonthlyPayment";
 import { usePage } from "@inertiajs/vue3";
+import OfferMade from "@/Pages/Listing/Show/OfferMade.vue";
 
 const props = defineProps({
     listing: Object,
+    offerMade: Object,
 });
 
 const interestRate = ref(2.5);

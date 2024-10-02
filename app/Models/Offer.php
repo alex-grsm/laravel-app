@@ -24,7 +24,13 @@ class Offer extends Model
         return $this->belongsTo(User::class, 'bidder_id');
     }
 
-    public function scopeByMe(Builder $query): Builder {
+    public function scopeByMe(Builder $query): Builder
+    {
         return $query->where('bidder_id', Auth::user()?->id);
+    }
+
+    public function scopeExcept(Builder $query, Offer $offer): Builder
+    {
+        return $query->where('id', '!=', $offer->id);
     }
 }

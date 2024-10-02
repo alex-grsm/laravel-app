@@ -4,10 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListingController;
-use App\Http\Controllers\ListingOfferController;
 use App\Http\Controllers\UserAccountController;
+use App\Http\Controllers\ListingOfferController;
 use App\Http\Controllers\RealtorListingController;
 use App\Http\Controllers\RealtorListingImageController;
+use App\Http\Controllers\RealtorListingAcceptOfferController;
 
 Route::get('/', [IndexController::class, 'index']);
 Route::get('/hello', [IndexController::class, 'show'])
@@ -42,6 +43,12 @@ Route::prefix('realtor')
         Route::resource('listing', RealtorListingController::class)
             // ->only(['index', 'destroy', 'edit', 'update', 'create', 'store'])
             ->withTrashed();
+
+        Route::name('offer.accept')
+            ->put(
+                'offer/{offer}/accept',
+                RealtorListingAcceptOfferController::class
+            );
 
         Route::resource('listing.image', RealtorListingImageController::class)
             ->only(['create', 'store', 'destroy']);

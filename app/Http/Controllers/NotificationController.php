@@ -7,14 +7,8 @@ use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
-/*************  ✨ Codeium Command ⭐  *************/
-    /**
-     * Get the user's notifications.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Inertia\Response
-     */
-/******  ee28296e-2d58-4e87-bba4-3cf573bda69c  *******/    public function index(Request $request): Response {
+    public function index(Request $request): Response
+    {
         return inertia(
             'Notification/Index',
             [

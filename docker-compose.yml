@@ -1,10 +1,9 @@
-version: "3.9"
 services:
   mysql:
     image: mariadb:10.8.3
     # Uncomment below when on Mac M1
     # platform: linux/arm64/v8
-    command: --default-authentication-plugin=mysql_native_password
+    command: --default-authentication-plugin=mysql_native_password --log-bin=mysql-bin --expire-logs-days=10
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -15,3 +14,8 @@ services:
     restart: always
     ports:
       - 8080:8080
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025

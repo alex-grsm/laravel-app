@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Policies\NotificationPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Notifications\DatabaseNotification;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,5 +27,7 @@ class AppServiceProvider extends ServiceProvider
                 return true; // Администратору разрешено всё
             }
         });
+
+        Gate::policy(DatabaseNotification::class, NotificationPolicy::class);
     }
 }
